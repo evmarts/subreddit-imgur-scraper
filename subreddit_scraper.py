@@ -11,8 +11,9 @@ import os
 import io
 
 def getHTML(url):
-	response = urllib2.urlopen(url)
-	html = response.read()
+	hdr = { 'User-Agent' : 'my happy little bot' }
+	req = urllib2.Request(url, headers=hdr)
+	html = urllib2.urlopen(req).read()
 	return html
 
 def parseHTML(html):
@@ -36,8 +37,6 @@ def isImgurAlbum(opath):
 
 def downloadImgurImage(url):
 	opath = getPath(url)
-	print opath
-	print isImgurAlbum(opath)
 	download_url = getDownloadUrl(url)
 	if not isImgurAlbum(opath):
 		with open(opath, 'wb+') as f:
@@ -81,8 +80,7 @@ def main():
 	hrefs = getPostTuple(posts_html)[1]
 	for href in hrefs:
 		if isImgurHref(href):
+			print "downloading image: " + str(href) + "..."
 			downloadImgurImage(href)
-	print hrefs
-
 
 main()
