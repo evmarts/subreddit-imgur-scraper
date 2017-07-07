@@ -71,9 +71,8 @@ def getFileExtension(file_name):
 	return file_ext
 
 def main():
-	# subreddit = input("Enter a subreddit: ")
-	# url = 'http://reddit.com/r/' + str(subreddit)
-	url = "http://reddit.com/r/pics"
+	subreddit = raw_input("Enter a subreddit: ")
+	url = 'http://reddit.com/r/' + str(subreddit)
 	html = getHTML(url)
 	posts_html = parseHTML(html)
 	titles = getPostTuple(posts_html)[0]
